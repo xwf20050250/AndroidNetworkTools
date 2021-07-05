@@ -34,4 +34,5 @@ subprojects {
   // Remember to update readme, and lets keep these version numbers in line with the github releases
   ext.appVersionName = "0.4.5.3"
   ext.appVersionCode = 21
+
 }

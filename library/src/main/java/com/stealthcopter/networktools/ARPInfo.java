@@ -1,6 +1,7 @@
 package com.stealthcopter.networktools;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,8 +10,6 @@ import java.util.HashMap;
 
 
 /**
- * Created by mat on 09/12/15.
- *
  * Looks at the file at /proc/net/arp to fromIPAddress ip/mac addresses from the cache
  * We assume that the file has this structure:
  *
@@ -120,6 +119,12 @@ public class ARPInfo {
      */
     private static ArrayList<String> getLinesInARPCache() {
         ArrayList<String> lines = new ArrayList<>();
+
+        // If we cant read the file just return empty list
+        if (!new File("/proc/net/arp").canRead()){
+            return lines;
+        }
+
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader("/proc/net/arp"));
@@ -147,7 +152,7 @@ public class ARPInfo {
      *
      * @return hashmap of ips and mac addresses
      */
-    private static HashMap<String, String> getAllIPandMACAddressesFromIPSleigh() {
+    public static HashMap<String, String> getAllIPandMACAddressesFromIPSleigh() {
         HashMap<String, String> macList = new HashMap<>();
 
         try {
